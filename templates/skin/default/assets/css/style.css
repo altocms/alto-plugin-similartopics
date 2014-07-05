@@ -1,0 +1,17 @@
+.widget-type-similartopics {
+
+}
+
+.widget-type-similartopics .similartopics-avatar {
+    width: 20px;
+    float: left;
+    margin-top: 4px;
+}
+
+.widget-type-similartopics .similartopics-topic-title {
+    display: block;
+    min-height: 24px;
+}
+
+.widget .similartopics-topic-intro {
+}

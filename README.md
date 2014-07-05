@@ -1,2 +1,2 @@
-alto-plugin-similartopics
-=========================
+Plugin "Similar Topics" for Alto CMS
+====================================

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+    <name>
+        <lang name="default">Similar Topics</lang>
+    </name>
+    <author>
+        <lang name="default">Alto CMS Team</lang>
+    </author>
+    <homepage>http://altocms.com</homepage>
+    <version>1.0</version>
+    <requires>
+        <alto>
+            <version>1.0</version>
+        </alto>
+        <system>
+            <php>5.3.0</php>
+        </system>
+    </requires>
+    <description>
+        <lang name="default">Similar Topics (defined by tags)</lang>
+    </description>
+</plugin>
