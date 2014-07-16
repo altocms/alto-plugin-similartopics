@@ -46,22 +46,33 @@ class PluginSimilartopics_ModuleTopic extends PluginSimilartopics_Inherits_Modul
      */
     public function GetSimilarTopics($xTopic, $iLimit = null) {
 
+        $aTopics = array();
+
         $aTopicTags = $this->_getTagsFromTopic($xTopic);
-        $aTopics = $this->GetSimilarTopicsByTags($aTopicTags, $iLimit);
+        if ($aTopicTags) {
+            if (is_object($xTopic)) {
+                $iTopicId = $xTopic->getId();
+            } else {
+                $iTopicId = intval($xTopic);
+            }
+            $aTopics = $this->GetSimilarTopicsByTags($aTopicTags, $iTopicId, $iLimit);
+            if ($aTopics) {
+                if (isset($aTopics)) {
+
+                }
+            }
+        }
 
         return $aTopics;
     }
 
-    public function GetSimilarTopicsByTags($aTags, $iLimit = null) {
+    public function GetSimilarTopicsByTags($aTags, $aExcludeTopics = array(), $iLimit = null) {
 
         if (is_null($iLimit)) {
             $iLimit = 10;
         }
-        $aFilter = array(
-            'limit' => $iLimit,
-        );
 
-        $aTopicsId = $this->oMapper->GetTopicsIdByTags($aTags, $aFilter);
+        $aTopicsId = $this->GetSimilarTopicsIdByTags($aTags, $aExcludeTopics, $iLimit);
         if ($aTopicsId) {
             $aTopics = $this->Topic_GetTopicsAdditionalData($aTopicsId);
         } else {
@@ -75,18 +86,26 @@ class PluginSimilartopics_ModuleTopic extends PluginSimilartopics_Inherits_Modul
      * Returns IDs of similar topics by tags
      *
      * @param array $aTags
+     * @param array $aExcludeTopics
+     * @param null  $iLimit
      *
      * @return array
      */
-    public function GetSimilarTopicsIdByTags($aTags) {
+    public function GetSimilarTopicsIdByTags($aTags, $aExcludeTopics = array(), $iLimit = null) {
 
         $iUserId = E::UserId();
-        $sCacheKey = 'similar_topics_id_' . $iUserId;
-        if (false === ($aTopicsId = $this->Cache_Get($sCacheKey))) {
-            $aFilter = array(
-                'exclude_blogs' => $this->Blog_GetInaccessibleBlogsByUser(E::User()),
-            );
+        $aFilter = array(
+            'exclude_blogs' => $this->Blog_GetInaccessibleBlogsByUser(E::User()),
+        );
+        if ($aExcludeTopics) {
+            $aFilter['exclude_topics'] = (is_array($aExcludeTopics) ? $aExcludeTopics : array(intval($aExcludeTopics)));
+        }
+        if ($iLimit) {
+            $aFilter['limit'] = $iLimit;
+        }
 
+        $sCacheKey = 'similar_topics_id_' . $iUserId . '_' . serialize($aFilter);
+        if (false === ($aTopicsId = $this->Cache_Get($sCacheKey))) {
             $aTopicsId = $this->oMapper->GetTopicsIdByTags($aTags, $aFilter);
             $this->Cache_Set($aTopicsId, $sCacheKey, array('content_new', 'content_update', 'blog_new', 'blog_update'), 'P1D');
         }

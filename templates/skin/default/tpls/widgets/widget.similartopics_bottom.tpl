@@ -1,4 +1,4 @@
-{$aSimilarTopics = $oTopic->getSimilarTopics()}
+{$aSimilarTopics = $oTopic->getSimilarTopics($aWidgetParams.limit)}
 {if $aSimilarTopics}
     <hr>
     <div class="panel panel-default widget">
@@ -12,13 +12,9 @@
                 <ul class="list-unstyled row">
                     {foreach $aSimilarTopics as $oSimilarTopic}
                         <li class="similartopics-topic-intro col-lg-4 col-md-6">
-                            <a href="{$oSimilarTopic->getUrlFull()}" class="similartopics-topic-title">{$oSimilarTopic->getTitle()|escape:"html"}</a>
+                            <a href="{$oSimilarTopic->getUrl()}" class="similartopics-topic-title">{$oSimilarTopic->getTitle()|escape:"html"}</a>
                             <div class="">
-                                {if $oSimilarTopic->getIntroText()}
-                                    {$oSimilarTopic->getIntroText('...')}
-                                {else}
-                                    {$oSimilarTopic->getTextShort()}
-                                {/if}
+                                {$oSimilarTopic->getIntroText()}
                             </div>
                         </li>
                     {/foreach}

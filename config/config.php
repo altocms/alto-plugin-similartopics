@@ -12,16 +12,20 @@
 
 $config['default_limit'] = 10;
 
+// Настройки виджета для сайдбара
 $config['widget_sidebar'] = array(
     'priority' => 200,
-    'action' => array(
+    'action'   => array(
         'blog' => array('{topic}'),
     ),
-    'display' => false,
+    'display'  => false,
 );
 
+// Настройки виджета в подвале топика
 $config['widget_showtopic'] = array(
-    'display' => true,
+    'limit'       => 2,
+    'text_maxlen' => 180,
+    'display'     => true,
 );
 
 // EOF

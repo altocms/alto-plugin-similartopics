@@ -23,6 +23,7 @@ class PluginSimilartopics_ModuleTopic_MapperTopic extends PluginSimilartopics_In
               LEFT JOIN prefix_topic AS t ON t.topic_id=tt.topic_id
             WHERE 1=1
               {AND tt.topic_tag_text IN (?a:tags)}
+              {AND t.topic_id NOT IN (?a:exclude_topics)}
               {AND t.blog_id IN (?a:include_blogs)}
               {AND t.blog_id NOT IN (?a:exclude_blogs)}
             GROUP BY tt.topic_id
@@ -31,8 +32,9 @@ class PluginSimilartopics_ModuleTopic_MapperTopic extends PluginSimilartopics_In
         ";
         $aRows = $this->oDb->sqlQuery($sql, array(
                 ':tags' => $aTags,
-                ':include_blogs' => (isset($aFilter['include_blogs']) && is_array($aFilter['include_blogs']) && count($aFilter['include_blogs'])) ? $aFilter['include_blogs'] : DBSIMPLE_SKIP,
-                ':exclude_blogs' => (isset($aFilter['exclude_blogs']) && is_array($aFilter['exclude_blogs']) && count($aFilter['exclude_blogs'])) ? $aFilter['exclude_blogs'] : DBSIMPLE_SKIP,
+                ':exclude_topics' => (isset($aFilter['exclude_topics']) ? $aFilter['exclude_topics'] : DBSIMPLE_SKIP),
+                ':include_blogs'  => (isset($aFilter['include_blogs']) && is_array($aFilter['include_blogs']) && count($aFilter['include_blogs'])) ? $aFilter['include_blogs'] : DBSIMPLE_SKIP,
+                ':exclude_blogs'  => (isset($aFilter['exclude_blogs']) && is_array($aFilter['exclude_blogs']) && count($aFilter['exclude_blogs'])) ? $aFilter['exclude_blogs'] : DBSIMPLE_SKIP,
                 ':limit' => !empty($aFilter['limit']) ? $aFilter['limit'] : DBSIMPLE_SKIP,
             ));
         if ($aRows) {
