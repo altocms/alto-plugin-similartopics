@@ -11,14 +11,14 @@
             <div class="simtopics-content">
 
                 <ul class="list-unstyled row">
-                    {if count($aSimilarTopics)>1}{$sCssClass="col-xs-6"}{/if}
+                    {if count($aSimilarTopics)>1}{$sCssClass="col-xs-12"}{/if}
                     {$bPreview=$aWidgetParams.preview.enable}
                     {foreach $aSimilarTopics as $oSimilarTopic}
                         <li class="{$sCssClass} {if $bPreview}simtopics-preview-on{/if}">
                             {if $aWidgetParams.preview.enable}
                                 <a href="{$oSimilarTopic->getUrl()}" class="simtopics-topic-preview">
                                     {if $oSimilarTopic->getPreviewImage()}
-                                        <img src="{$oSimilarTopic->getPreviewImageUrl($aWidgetParams.preview.size.default)}">
+                                        <img src="{$oSimilarTopic->getPreviewImageUrl('50crop')}">
                                     {/if}
                                 </a>
                             {/if}
@@ -46,7 +46,7 @@
             el=$(selector);
 
         if (el.length) {
-            el.insertAfter(".js-topic");
+            el.insertAfter(".js-topic:first");
         }
     });
 </script>

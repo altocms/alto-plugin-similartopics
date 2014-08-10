@@ -21,7 +21,7 @@ class PluginSimilartopics_ModuleTopic_MapperTopic extends PluginSimilartopics_In
                     COUNT(topic_tag_id)
               FROM `prefix_topic_tag` AS tt
               LEFT JOIN prefix_topic AS t ON t.topic_id=tt.topic_id
-            WHERE 1=1
+            WHERE t.topic_id IS NOT NULL
               {AND tt.topic_tag_text IN (?a:tags)}
               {AND t.topic_id NOT IN (?a:exclude_topics)}
               {AND t.blog_id IN (?a:include_blogs)}

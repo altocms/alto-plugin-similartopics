@@ -10,22 +10,17 @@
  *----------------------------------------------------------------------------
  */
 
-$config['default_limit'] = 10;
-
-// Настройки виджета для сайдбара
-$config['widget_sidebar'] = array(
-    'priority' => 200,
-    'action'   => array(
-        'blog' => array('{topic}'),
-    ),
-    'display'  => false,
-);
-
 // Настройки виджета в подвале топика
 $config['widget_showtopic'] = array(
-    'limit'       => 2,
-    'text_maxlen' => 180,
-    'display'     => true,
+    'limit'       => 4,         // максимальное число выводимых похожих статей
+    'text_maxlen' => 180,       // максимальная длина текста
+    'preview'     => array(
+        'enable' => true,       // true - вывод превью включен, false - выключен
+        'size'   => array(
+            'default' => '50crop',
+        ),
+    ),
+    'display'     => true,      // true - показывать виджет, false - не показывать
 );
 
 // EOF

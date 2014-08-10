@@ -14,8 +14,6 @@ class PluginSimilartopics_HookSimilartopics extends Hook {
 
     public function RegisterHook() {
 
-        $this->AddHook('init_action', 'InitAction');
-
         if ($aWidgetParams = Config::Get('plugin.similartopics.widget_showtopic')) {
             if (isset($aWidgetParams['display']) && $aWidgetParams['display']) {
                 $this->AddHook('template_topic_show_end', 'TplTopicShowEnd');
@@ -23,41 +21,16 @@ class PluginSimilartopics_HookSimilartopics extends Hook {
         }
     }
 
-    public function InitAction() {
+    public function TplTopicShowEnd($aParams) {
 
-        if ($aWidgetParams = Config::Get('plugin.similartopics.widget_sidebar')) {
-            if (isset($aWidgetParams['display']) && $aWidgetParams['display']) {
-                if (isset($aWidgetParams['wgroup'])) {
-                    $sGroup = $aWidgetParams['wgroup'];
-                    unset($aWidgetParams['wgroup']);
-                } else {
-                    $sGroup = 'right';
-                }
-                if (isset($aWidgetParams['name'])) {
-                    $sName = $aWidgetParams['name'];
-                    unset($aWidgetParams['name']);
-                } else {
-                    $sName = 'similartopics_sidebar.tpl';
-                }
-                if (!isset($aWidgetParams['id'])) {
-                    $aWidgetParams['id'] = 'plugin.similartopics.similartopics_sidebar';
-                }
-                if (!isset($aWidgetParams['action'])) {
-                    $aWidgetParams['action'] = array(
-                        'blog' => array('{topic}'),
-                    );
-                }
-                $aWidgetParams['plugin'] = 'similartopics';
-
-                $this->Viewer_AddWidget($sGroup, $sName, $aWidgetParams);
+        if ((!isset($aParams['bTopicList']) || !$aParams['bTopicList']) && (isset($aParams['topic'])) || isset($aParams['oTopic'])) {
+            if (isset($aParams['topic'])) {
+                $this->Viewer_Assign('oTopic', $aParams['topic']);
             }
+            $this->Viewer_Assign('aWidgetParams', Config::Get('plugin.similartopics.widget_showtopic'));
+            return $this->Viewer_Fetch(Plugin::GetTemplateDir(__CLASS__) . 'tpls/widgets/widget.similartopics_bottom.tpl');
         }
-    }
-
-    public function TplTopicShowEnd() {
-
-        $this->Viewer_Assign('aWidgetParams', Config::Get('plugin.similartopics.widget_showtopic'));
-        return $this->Viewer_Fetch(Plugin::GetTemplateDir(__CLASS__) . 'tpls/widgets/widget.similartopics_bottom.tpl');
+        return null;
     }
 }
 

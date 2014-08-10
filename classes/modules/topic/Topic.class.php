@@ -56,16 +56,18 @@ class PluginSimilartopics_ModuleTopic extends PluginSimilartopics_Inherits_Modul
                 $iTopicId = intval($xTopic);
             }
             $aTopics = $this->GetSimilarTopicsByTags($aTopicTags, $iTopicId, $iLimit);
-            if ($aTopics) {
-                if (isset($aTopics)) {
-
-                }
-            }
         }
 
         return $aTopics;
     }
 
+    /**
+     * @param array     $aTags
+     * @param array|int $aExcludeTopics
+     * @param int       $iLimit
+     *
+     * @return array
+     */
     public function GetSimilarTopicsByTags($aTags, $aExcludeTopics = array(), $iLimit = null) {
 
         if (is_null($iLimit)) {
@@ -121,9 +123,9 @@ class PluginSimilartopics_ModuleTopic extends PluginSimilartopics_Inherits_Modul
     public function CountSimilarTopics($xTopic) {
 
         $aTopicTags = $this->_getTagsFromTopic($xTopic);
-        $aTopics = $this->CountSimilarTopicsByTags($aTopicTags);
+        $nTopics = $this->CountSimilarTopicsByTags($aTopicTags);
 
-        return $aTopics;
+        return $nTopics ? $nTopics - 1 : 0;
     }
 
     /**
