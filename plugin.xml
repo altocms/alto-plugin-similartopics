@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin compatible="alto">
+    <id>similartopics</id>
     <name>
         <lang name="default">Similar Topics</lang>
     </name>
@@ -7,7 +8,8 @@
         <lang name="default">Alto CMS Team</lang>
     </author>
     <homepage>http://altocms.com</homepage>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
+    <dirname>similartopics</dirname>
     <requires>
         <alto>
             <version>1.0</version>
