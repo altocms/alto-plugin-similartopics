@@ -19,8 +19,8 @@ class PluginSimilartopics_ModuleTopic_MapperTopic extends PluginSimilartopics_In
                 tt.topic_id ARRAY_KEYS,
                     CASE WHEN t.topic_date_show IS NULL THEN t.topic_date_add ELSE t.topic_date_show END AS topic_date,
                     COUNT(topic_tag_id)
-              FROM `prefix_topic_tag` AS tt
-              LEFT JOIN prefix_topic AS t ON t.topic_id=tt.topic_id
+              FROM ?_topic_tag AS tt
+              LEFT JOIN ?_topic AS t ON t.topic_id=tt.topic_id
             WHERE t.topic_id IS NOT NULL
               {AND tt.topic_tag_text IN (?a:tags)}
               {AND t.topic_id NOT IN (?a:exclude_topics)}

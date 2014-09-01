@@ -8,7 +8,7 @@
         <lang name="default">Alto CMS Team</lang>
     </author>
     <homepage>http://altocms.com</homepage>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <dirname>similartopics</dirname>
     <requires>
         <alto>
@@ -19,6 +19,6 @@
         </system>
     </requires>
     <description>
-        <lang name="default">Similar Topics (defined by tags)</lang>
+        <lang name="default">Similar Topics (seeking by tags)</lang>
     </description>
 </plugin>
