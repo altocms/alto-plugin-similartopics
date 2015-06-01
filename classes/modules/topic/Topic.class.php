@@ -76,7 +76,7 @@ class PluginSimilartopics_ModuleTopic extends PluginSimilartopics_Inherits_Modul
 
         $aTopicsId = $this->GetSimilarTopicsIdByTags($aTags, $aExcludeTopics, $iLimit);
         if ($aTopicsId) {
-            $aTopics = $this->Topic_GetTopicsAdditionalData($aTopicsId);
+            $aTopics = E::ModuleTopic()->GetTopicsAdditionalData($aTopicsId);
         } else {
             $aTopics = array();
         }
@@ -97,7 +97,7 @@ class PluginSimilartopics_ModuleTopic extends PluginSimilartopics_Inherits_Modul
 
         $iUserId = E::UserId();
         $aFilter = array(
-            'exclude_blogs' => $this->Blog_GetInaccessibleBlogsByUser(E::User()),
+            'exclude_blogs' => E::ModuleBlog()->GetInaccessibleBlogsByUser(E::User()),
         );
         if ($aExcludeTopics) {
             $aFilter['exclude_topics'] = (is_array($aExcludeTopics) ? $aExcludeTopics : array(intval($aExcludeTopics)));
@@ -107,9 +107,9 @@ class PluginSimilartopics_ModuleTopic extends PluginSimilartopics_Inherits_Modul
         }
 
         $sCacheKey = 'similar_topics_id_' . $iUserId . '_' . serialize($aFilter);
-        if (false === ($aTopicsId = $this->Cache_Get($sCacheKey))) {
+        if (false === ($aTopicsId = E::ModuleCache()->Get($sCacheKey))) {
             $aTopicsId = $this->oMapper->GetTopicsIdByTags($aTags, $aFilter);
-            $this->Cache_Set($aTopicsId, $sCacheKey, array('content_new', 'content_update', 'blog_new', 'blog_update'), 'P1D');
+            E::ModuleCache()->Set($aTopicsId, $sCacheKey, array('content_new', 'content_update', 'blog_new', 'blog_update'), 'P1D');
         }
 
         return $aTopicsId;

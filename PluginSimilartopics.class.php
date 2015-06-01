@@ -42,7 +42,7 @@ class PluginSimilartopics extends Plugin {
      */
     public function Init() {
 
-        $this->Viewer_AppendStyle(Plugin::GetTemplateDir(__CLASS__) . 'assets/css/style.css');
+        E::ModuleViewer()->AppendStyle(Plugin::GetTemplateDir(__CLASS__) . 'assets/css/similartopics.css');
         return true;
     }
 

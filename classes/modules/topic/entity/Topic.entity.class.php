@@ -14,12 +14,12 @@ class PluginSimilartopics_ModuleTopic_EntityTopic extends PluginSimilartopics_In
 
     public function GetSimilarTopics($nLimit = null) {
 
-        return $this->Topic_GetSimilarTopics($this, $nLimit);
+        return E::ModuleTopic()->GetSimilarTopics($this, $nLimit);
     }
 
     public function CountSimilarTopics() {
 
-        return $this->Topic_CountSimilarTopics($this);
+        return E::ModuleTopic()->CountSimilarTopics($this);
     }
 
     public function getIntroText($sPostfix = '...', $bIgnoreShortText = false) {

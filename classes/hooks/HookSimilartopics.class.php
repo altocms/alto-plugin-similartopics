@@ -16,7 +16,7 @@ class PluginSimilartopics_HookSimilartopics extends Hook {
 
         if ($aWidgetParams = Config::Get('plugin.similartopics.widget_showtopic')) {
             if (isset($aWidgetParams['display']) && $aWidgetParams['display']) {
-                $this->AddHook('template_topic_show_end', 'TplTopicShowEnd');
+                $this->AddHookTemplate('topic_show_end', array($this, 'TplTopicShowEnd'));
             }
         }
     }
@@ -25,10 +25,10 @@ class PluginSimilartopics_HookSimilartopics extends Hook {
 
         if ((!isset($aParams['bTopicList']) || !$aParams['bTopicList']) && (isset($aParams['topic'])) || isset($aParams['oTopic'])) {
             if (isset($aParams['topic'])) {
-                $this->Viewer_Assign('oTopic', $aParams['topic']);
+                E::ModuleViewer()->Assign('oTopic', $aParams['topic']);
             }
-            $this->Viewer_Assign('aWidgetParams', Config::Get('plugin.similartopics.widget_showtopic'));
-            return $this->Viewer_Fetch(Plugin::GetTemplateDir(__CLASS__) . 'tpls/widgets/widget.similartopics_bottom.tpl');
+            E::ModuleViewer()->Assign('aWidgetParams', Config::Get('plugin.similartopics.widget_showtopic'));
+            return E::ModuleViewer()->Fetch(Plugin::GetTemplateDir(__CLASS__) . 'tpls/widgets/widget.similartopics_bottom.tpl');
         }
         return null;
     }

@@ -40,14 +40,4 @@
         </div>
     </div>
 
-<script>
-    $(function(){
-        var selector=".simtopics",
-            el=$(selector);
-
-        if (el.length) {
-            el.insertAfter(".js-topic:first");
-        }
-    });
-</script>
 {/if}
