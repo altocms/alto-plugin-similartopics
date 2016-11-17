@@ -18,13 +18,13 @@
                             {if $aWidgetParams.preview.enable}
                                 <a href="{$oSimilarTopic->getUrl()}" class="simtopics-topic-preview">
                                     {if $oSimilarTopic->getPreviewImage()}
-                                        <img src="{$oSimilarTopic->getPreviewImageUrl($aWidgetParams.preview.size.default)}">
+                                        <img src="{$oSimilarTopic->getPreviewImageUrl($aWidgetParams.preview.size.default)}" style="{$oSimilarTopic->getPreviewImageSizeStyle('50crop')}">
                                     {/if}
                                 </a>
                             {/if}
                             <a href="{$oSimilarTopic->getUrl()}" class="simtopics-topic-title">{$oSimilarTopic->getTitle()|escape:"html"}</a>
                             <div class="simitopics-topic-intro">
-                                {$oSimilarTopic->getIntroText()}
+                                {$oSimilarTopic->getSnippetText()}
                             </div>
                         </li>
                     {/foreach}

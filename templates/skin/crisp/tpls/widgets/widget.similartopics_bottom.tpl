@@ -18,7 +18,7 @@
                         <li class="{$sCssClass}">
                             <a href="{$oSimilarTopic->getUrl()}" class="similartopics-topic-title">{$oSimilarTopic->getTitle()|escape:"html"}</a>
                             <div class="simitopics-topic-intro">
-                                {$oSimilarTopic->getIntroText()}
+                                {$oSimilarTopic->getSnippetText()}
                             </div>
                         </li>
                     {/foreach}

@@ -22,9 +22,9 @@ class PluginSimilartopics_ModuleTopic_EntityTopic extends PluginSimilartopics_In
         return E::ModuleTopic()->CountSimilarTopics($this);
     }
 
-    public function getIntroText($sPostfix = '...', $bIgnoreShortText = false) {
+    public function getSnippetText($sPostfix = '...', $bIgnoreShortText = false) {
 
-        $sText = parent::getIntroText($sPostfix, $bIgnoreShortText);
+        $sText = $this->getIntroText($sPostfix, $bIgnoreShortText);
         if (!$sText) {
             $sText = $this->getTextShort();
         }
